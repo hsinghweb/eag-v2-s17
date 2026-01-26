@@ -88,3 +88,4 @@ action/
 # Gemini/Brain
 .gemini/
 
+data/inbox/notifications.db
