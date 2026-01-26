@@ -7,9 +7,9 @@
     "query": "Check current stock price of Apple. Save brief to Notes/test_apple.md",
     "skill_id": "market_analyst",
     "enabled": true,
-    "last_run": "2026-01-26T20:15:00.259660",
+    "last_run": "2026-01-26T20:31:00.341651",
     "next_run": "2026-01-26T19:10:00+05:30",
-    "last_output": "The `concise_stock_summary` input is empty. Therefore, I cannot format the stock summary into a Markdown report. The output indicates that the summary is not available."
+    "last_output": "The step requires saving a Markdown report. The input for `formatted_apple_report_md` is empty, meaning the content to be saved is missing."
   },
   {
     "id": "1b5f4da2",
@@ -19,9 +19,9 @@
     "query": "Find silver price and save to Notes/Scheduler/Silver_price.md",
     "skill_id": "market_analyst",
     "enabled": true,
-    "last_run": "2026-01-26T20:18:00.013535",
+    "last_run": "2026-01-26T20:31:00.020263",
     "next_run": "2026-01-26T19:10:00+05:30",
-    "last_output": "The input 'current_silver_price_data' is an empty list, indicating that no silver price was retrieved. The Markdown report will concisely state the absence of data."
+    "last_output": "# Silver Price Report\n\n**Date:** 2026-01-26\n\nNo summarized silver price data was available to generate the report."
   },
   {
     "id": "a864df73",
@@ -31,8 +31,56 @@
     "query": "Check system cpu usage",
     "skill_id": null,
     "enabled": true,
-    "last_run": "2026-01-26T20:15:00.528909",
+    "last_run": "2026-01-26T20:26:00.016688",
     "next_run": "2026-01-26T19:10:00+05:30",
-    "last_output": "The `raw_cpu_usage_data` input is an empty list, meaning no CPU usage data was provided to summarize."
+    "last_output": "The `summarized_cpu_usage` input is an empty list. According to the user's preference for concise and direct responses, the output should state that no CPU usage data was found, as there's nothing to summarize or report."
+  },
+  {
+    "id": "dba0daec",
+    "name": "Test Market Check",
+    "cron_expression": "* * * * *",
+    "agent_type": "PlannerAgent",
+    "query": "Check current stock price of Apple. Save brief to Notes/test_apple.md",
+    "skill_id": "market_analyst",
+    "enabled": true,
+    "last_run": "2026-01-26T20:29:00.231264",
+    "next_run": "2026-01-26T20:23:00+05:30",
+    "last_output": "No content provided in `apple_brief_content` for formatting into a Markdown report. The file `Notes/test_apple.md` will not be created or will be empty."
+  },
+  {
+    "id": "52338019",
+    "name": "Test Silver Price",
+    "cron_expression": "* * * * *",
+    "agent_type": "PlannerAgent",
+    "query": "Find silver price and save to Notes/Scheduler/Silver_price.md",
+    "skill_id": "market_analyst",
+    "enabled": true,
+    "last_run": "2026-01-26T20:28:00.004640",
+    "next_run": "2026-01-26T20:23:00+05:30",
+    "last_output": "The user requested a concise Markdown report of the silver price including the current date. The provided input for 'silver_price_raw_data.json' is an empty list, meaning no price data was supplied to..."
+  },
+  {
+    "id": "0a7a6692",
+    "name": "Test System Health",
+    "cron_expression": "* * * * *",
+    "agent_type": "PlannerAgent",
+    "query": "Check system cpu usage",
+    "skill_id": "system_monitor",
+    "enabled": true,
+    "last_run": "2026-01-26T20:29:00.018741",
+    "next_run": "2026-01-26T20:23:00+05:30",
+    "last_output": "CPU: 52.4%, RAM: 85.0%, Disk: 27.2%"
+  },
+  {
+    "id": "2e343309",
+    "name": "Test Clip Google",
+    "cron_expression": "* * * * *",
+    "agent_type": "PlannerAgent",
+    "query": "Clip url https://www.google.com",
+    "skill_id": "web_clipper",
+    "enabled": true,
+    "last_run": "2026-01-26T20:27:51.686580",
+    "next_run": "2026-01-26T20:28:00+05:30",
+    "last_output": null
   }
 ]

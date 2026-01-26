@@ -1,3 +1,7 @@
 # 📈 Market Briefing
 
-The input 'current_silver_price_data' is an empty list, indicating that no silver price was retrieved. The Markdown report will concisely state the absence of data.
+# Silver Price Report
+
+**Date:** 2026-01-26
+
+No summarized silver price data was available to generate the report.

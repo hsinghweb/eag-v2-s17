@@ -1,3 +1,3 @@
 # 📈 Market Briefing
 
-The `concise_stock_summary` input is empty. Therefore, I cannot format the stock summary into a Markdown report. The output indicates that the summary is not available.
+The step requires saving a Markdown report. The input for `formatted_apple_report_md` is empty, meaning the content to be saved is missing.
