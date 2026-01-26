@@ -83,7 +83,7 @@ class MarketAnalystSkill(BaseSkill):
             print(f"ℹ️ Skipping overwrite of {target} with placeholder info.")
         else:
             target.parent.mkdir(parents=True, exist_ok=True)
-            target.write_text(f"# 📈 Market Briefing\n\n{content}")
+            target.write_text(f"# 📈 Market Briefing\n\n{content}", encoding="utf-8")
             print(f"✅ Market Analyst saved briefing to {target}")
         
         return {

@@ -46,7 +46,7 @@ class WebClipperSkill(BaseSkill):
             safe_name = re.sub(r"[^a-zA-Z0-9]", "_", url)[:50]
             target = Path(f"data/Notes/Clips/{safe_name}_{self.context.run_id}.md")
             target.parent.mkdir(parents=True, exist_ok=True)
-            target.write_text(report)
+            target.write_text(report, encoding="utf-8")
             print(f"✅ Web Clipper saved clone to {target}")
             
             return {

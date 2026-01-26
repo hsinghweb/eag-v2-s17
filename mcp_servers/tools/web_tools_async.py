@@ -65,6 +65,22 @@ async def web_tool_playwright(url: str, max_total_wait: int = 15) -> dict:
     result = {"url": url}
 
     try:
+        # Playwright requires subprocess support in the running event loop.
+        if sys.platform == "win32":
+            proactor_cls = getattr(asyncio, "ProactorEventLoop", None)
+            loop = asyncio.get_running_loop()
+            if proactor_cls is not None and not isinstance(loop, proactor_cls):
+                result.update({
+                    "title": "[playwright disabled]",
+                    "html": "",
+                    "text": "[playwright disabled: unsupported event loop]",
+                    "main_text": "",
+                    "trafilatura_text": "",
+                    "best_text": "[playwright disabled: unsupported event loop]",
+                    "best_text_source": "disabled"
+                })
+                return result
+
         async with async_playwright() as p:
             browser = await p.chromium.launch(headless=True) # changed to headless=True for stability
             page = await browser.new_page()
@@ -152,6 +168,16 @@ async def web_tool_playwright(url: str, max_total_wait: int = 15) -> dict:
 import httpx
 
 async def smart_web_extract(url: str, timeout: int = 5) -> dict:
+    playwright_supported = True
+    if sys.platform == "win32":
+        proactor_cls = getattr(asyncio, "ProactorEventLoop", None)
+        try:
+            loop = asyncio.get_running_loop()
+            if proactor_cls is not None and not isinstance(loop, proactor_cls):
+                playwright_supported = False
+        except RuntimeError:
+            # No running loop yet; keep default True and let fallback decide.
+            pass
 
     headers = get_random_headers()
 
@@ -159,6 +185,17 @@ async def smart_web_extract(url: str, timeout: int = 5) -> dict:
 
         if is_difficult_website(url):
             print(f"Detected difficult site ({url}) → skipping fast scrape")
+            if not playwright_supported:
+                return {
+                    "url": url,
+                    "title": "[playwright disabled]",
+                    "html": "",
+                    "text": "[playwright disabled: unsupported event loop]",
+                    "main_text": "",
+                    "trafilatura_text": "",
+                    "best_text": "[playwright disabled: unsupported event loop]",
+                    "best_text_source": "disabled"
+                }
             return await web_tool_playwright(url)
 
 
@@ -185,10 +222,34 @@ async def smart_web_extract(url: str, timeout: int = 5) -> dict:
                 "best_text_source": best_source
             }
 
+        if not playwright_supported:
+            print("Fast scrape too small, Playwright disabled; returning fast result.")
+            return {
+                "url": url,
+                "title": Document(html).short_title(),
+                "html": html,
+                "text": visible_text,
+                "main_text": main_text,
+                "trafilatura_text": trafilatura_text,
+                "best_text": ascii_only(best_text),
+                "best_text_source": best_source
+            }
+
         print("Fast scrape too small, falling back...")
 
     except Exception as e:
         print("Fast scrape failed:", e)
+        if not playwright_supported:
+            return {
+                "url": url,
+                "title": "[fast scrape failed]",
+                "html": "",
+                "text": f"[fast scrape failed: {e}]",
+                "main_text": "",
+                "trafilatura_text": "",
+                "best_text": "[fast scrape failed]",
+                "best_text_source": "error"
+            }
 
     # Fallback
     return await web_tool_playwright(url)

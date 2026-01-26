@@ -5,9 +5,9 @@
   },
   "models": {
     "embedding": "nomic-embed-text",
-    "semantic_chunking": "gemma3:4b",
-    "image_captioning": "gemma3:4b",
-    "memory_extraction": "gemma3:4b",
+    "semantic_chunking": "gemma2:2b",
+    "image_captioning": "gemma2:2b",
+    "memory_extraction": "gemma2:2b",
     "insights_provider": "ollama"
   },
   "rag": {

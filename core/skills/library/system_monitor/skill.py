@@ -38,7 +38,7 @@ class SystemMonitorSkill(BaseSkill):
         # Save
         target = Path(f"data/Notes/System/Health_{self.context.run_id}.md")
         target.parent.mkdir(parents=True, exist_ok=True)
-        target.write_text(report)
+        target.write_text(report, encoding="utf-8")
         print(f"✅ System Monitor saved report to {target}")
         
         return {
