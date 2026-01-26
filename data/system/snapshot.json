@@ -2,15 +2,10 @@
   "timestamp": null,
   "active_runs": [
     {
-      "run_id": "auto_5f417b2a_20260126_193300",
+      "run_id": "auto_1b5f4da2_20260126_201000",
       "status": "running",
-      "query": "You are the Market Analyst Mode.\n        Task: Check current stock price of Apple. Save brief to Notes/test_apple.md\n        \n        Instructions:\n        1. Use 'yahoo_finance' tools (get_stock_price, get_company_news) heavily.\n        2. Cross-reference with Web Search if needed.\n        3. Be concise and data-driven.\n        4. Always include a final 'FormatterAgent' step to produce a cohesive Markdown report."
-    },
-    {
-      "run_id": "auto_a864df73_20260126_193300",
-      "status": "running",
-      "query": "Check system cpu usage"
+      "query": "You are the Market Analyst Mode.\n        Task: Find silver price and save to Notes/Scheduler/Silver_price.md\n        \n        Instructions:\n        1. Use 'yahoo_finance' tools (get_stock_price, get_company_news) heavily.\n        2. Cross-reference with Web Search if needed.\n        3. Be concise and data-driven.\n        4. Always include a final 'FormatterAgent' step to produce a cohesive Markdown report."
     }
   ],
-  "event_history_count": 12
+  "event_history_count": 35
 }
