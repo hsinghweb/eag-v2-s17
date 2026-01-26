@@ -31,9 +31,9 @@
     "query": "Check system cpu usage",
     "skill_id": null,
     "enabled": true,
-    "last_run": "2026-01-26T20:26:00.016688",
+    "last_run": "2026-01-26T20:32:00.903530",
     "next_run": "2026-01-26T19:10:00+05:30",
-    "last_output": "The `summarized_cpu_usage` input is an empty list. According to the user's preference for concise and direct responses, the output should state that no CPU usage data was found, as there's nothing to summarize or report."
+    "last_output": "The input `parsed_cpu_usage_data` is empty. The report will state that no CPU usage data is available."
   },
   {
     "id": "dba0daec",
