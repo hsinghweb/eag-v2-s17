@@ -1,5 +1,11 @@
 {
   "timestamp": null,
-  "active_runs": [],
-  "event_history_count": 0
+  "active_runs": [
+    {
+      "run_id": "auto_1b5f4da2_20260126_192800",
+      "status": "running",
+      "query": "You are the Market Analyst Mode.\n        Task: Find silver price and save to Notes/Scheduler/Silver_price.md\n        \n        Instructions:\n        1. Use 'yahoo_finance' tools (get_stock_price, get_company_news) heavily.\n        2. Cross-reference with Web Search if needed.\n        3. Be concise and data-driven.\n        4. Always include a final 'FormatterAgent' step to produce a cohesive Markdown report."
+    }
+  ],
+  "event_history_count": 11
 }
