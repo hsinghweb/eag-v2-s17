@@ -198,8 +198,13 @@ class SchedulerService:
             )
             # Update next run time
             aps_job = self.scheduler.get_job(job.id)
-            if aps_job and aps_job.next_run_time:
-                job.next_run = aps_job.next_run_time.isoformat()
+            next_run_time = None
+            if aps_job:
+                next_run_time = getattr(aps_job, "next_run_time", None)
+                if next_run_time is None:
+                    next_run_time = getattr(aps_job, "next_fire_time", None)
+            if next_run_time:
+                job.next_run = next_run_time.isoformat()
                 self.save_jobs()
                 
         except Exception as e:
@@ -258,8 +263,13 @@ class SchedulerService:
         # Update next_run times from scheduler
         for job_id, job in self.jobs.items():
             aps_job = self.scheduler.get_job(job_id)
-            if aps_job and aps_job.next_run_time:
-                job.next_run = aps_job.next_run_time.isoformat()
+            next_run_time = None
+            if aps_job:
+                next_run_time = getattr(aps_job, "next_run_time", None)
+                if next_run_time is None:
+                    next_run_time = getattr(aps_job, "next_fire_time", None)
+            if next_run_time:
+                job.next_run = next_run_time.isoformat()
         
         return list(self.jobs.values())
 

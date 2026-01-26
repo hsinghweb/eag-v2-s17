@@ -1,0 +1,16 @@
+{
+  "pending": [
+    {
+      "raw": {
+        "memory_format": "Hub",
+        "data_sources": [
+          "yahoo_finance"
+        ],
+        "analysis_focus": "Stock Price and News"
+      },
+      "source": "session_auto_5f417b2a_20260126_193300",
+      "timestamp": "2026-01-26T20:03:09.576391"
+    }
+  ],
+  "last_normalized": null
+}

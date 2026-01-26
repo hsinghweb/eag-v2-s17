@@ -8,6 +8,13 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Optional
 
+# Ensure Windows event loop supports subprocesses (needed for MCP stdio servers)
+if sys.platform == "win32":
+    try:
+        asyncio.set_event_loop_policy(asyncio.WindowsProactorEventLoopPolicy())
+    except Exception:
+        pass
+
 # Add project root to path
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 

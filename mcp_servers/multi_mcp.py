@@ -117,6 +117,10 @@ class MultiMCP:
             args = config.get("args", [])
             server_type = config.get("type", "local-script")
             env = config.get("env", None) # Optional env vars
+            server_cwd = None
+            final_env = os.environ.copy()
+            if env:
+                final_env.update(env)
 
             # --- Pre-processing for different types ---
             
@@ -128,6 +132,7 @@ class MultiMCP:
                      # args usually: ["run", "server_browser.py"]
                      script_path = str(self.base_dir / script_name)
                      args = args[:-1] + [script_path]
+                server_cwd = self.base_dir
 
             elif server_type == "stdio-git":
                 # Clone repo and setup
@@ -137,6 +142,7 @@ class MultiMCP:
                 
                 server_dir = self.base_dir.parent / "data" / "mcp_repos" / name
                 server_dir.parent.mkdir(parents=True, exist_ok=True)
+                server_cwd = server_dir
                 
                 if not server_dir.exists():
                      print(f"  ⬇️ Cloning {name} from {repo_url}...")
@@ -215,10 +221,6 @@ class MultiMCP:
             
             # --- Execution ---
 
-            final_env = os.environ.copy()
-            if env:
-                final_env.update(env)
-
             # Check if uv exists fallback
             if cmd == "uv" and not shutil.which("uv"):
                 cmd = sys.executable
@@ -267,12 +269,77 @@ class MultiMCP:
                 
                 self.sessions[name] = session
 
+        except NotImplementedError as e:
+            print(f"  ❌ [red]{name}[/red] failed to start: {e}")
+            print("  ⚠️ Windows event loop does not support subprocesses. Use ProactorEventLoopPolicy.")
+            return False
         except TimeoutError:
              print(f"  ⏳ [yellow]{name}[/yellow] timed out during startup.")
         except Exception as e:
             print(f"  ❌ [red]{name}[/red] failed to start: {e}")
+            await self._probe_server_process(
+                name=name,
+                cmd=cmd,
+                args=args,
+                env=final_env,
+                cwd=server_cwd,
+            )
         except BaseException as e:
             print(f"  ❌ [red]{name}[/red] CRITICAL FAILURE: {e}")
+
+    async def _probe_server_process(
+        self,
+        name: str,
+        cmd: str,
+        args: list,
+        env: dict = None,
+        cwd: Path = None,
+        timeout: float = 8.0,
+    ):
+        """Run the server command briefly to capture stdout/stderr for diagnostics."""
+        try:
+            cmd_display = " ".join([cmd] + args)
+            cwd_display = str(cwd) if cwd else "<default>"
+            print(f"  🔎 Probing [cyan]{name}[/cyan] server process for errors...")
+            print(f"  🔧 Command: {cmd_display}")
+            print(f"  📁 CWD: {cwd_display}")
+
+            proc = await asyncio.create_subprocess_exec(
+                cmd,
+                *args,
+                cwd=str(cwd) if cwd else None,
+                env=env,
+                stdout=asyncio.subprocess.PIPE,
+                stderr=asyncio.subprocess.PIPE,
+            )
+
+            try:
+                stdout, stderr = await asyncio.wait_for(proc.communicate(), timeout=timeout)
+            except asyncio.TimeoutError:
+                proc.terminate()
+                try:
+                    stdout, stderr = await asyncio.wait_for(proc.communicate(), timeout=3.0)
+                except asyncio.TimeoutError:
+                    proc.kill()
+                    stdout, stderr = await proc.communicate()
+
+            stdout_text = stdout.decode("utf-8", errors="replace") if stdout else ""
+            stderr_text = stderr.decode("utf-8", errors="replace") if stderr else ""
+
+            if stdout_text.strip():
+                print(f"  📤 STDOUT:\n{stdout_text}")
+            if stderr_text.strip():
+                print(f"  📥 STDERR:\n{stderr_text}")
+            if not stdout_text.strip() and not stderr_text.strip():
+                print("  ℹ️ No stdout/stderr captured during probe.")
+
+            if proc.returncode is not None:
+                print(f"  🧾 Probe exit code: {proc.returncode}")
+        except NotImplementedError as probe_error:
+            print(f"  ⚠️ Probe failed for {name}: {probe_error}")
+            print("  ⚠️ Windows event loop does not support subprocesses. Use ProactorEventLoopPolicy.")
+        except Exception as probe_error:
+            print(f"  ⚠️ Probe failed for {name}: {probe_error}")
 
     async def start(self):
         """Start all configured servers"""
@@ -350,6 +417,57 @@ class MultiMCP:
         
         return await self.sessions[server_name].call_tool(tool_name, arguments)
 
+    def _find_cached_tool_schema(self, tool_name: str):
+        """Find tool schema from active tools or cached metadata."""
+        for tools in self.tools.values():
+            for tool in tools:
+                if tool.name == tool_name:
+                    return tool.inputSchema
+        for server_name, tools in self._cached_metadata.items():
+            for tool in tools:
+                if tool.get("name") == tool_name:
+                    return tool.get("inputSchema")
+        return None
+
+    def _find_server_for_tool(self, tool_name: str):
+        """Find the server that owns a tool (using cache as fallback)."""
+        for name, tools in self.tools.items():
+            for tool in tools:
+                if tool.name == tool_name:
+                    return name
+        for server_name, tools in self._cached_metadata.items():
+            for tool in tools:
+                if tool.get("name") == tool_name:
+                    return server_name
+        return None
+
+    def _normalize_tool_arguments(self, tool_name: str, arguments):
+        """Normalize tool arguments to a dict based on schema when possible."""
+        if isinstance(arguments, dict):
+            return arguments
+
+        schema = self._find_cached_tool_schema(tool_name) or {}
+        props = schema.get("properties") or {}
+        keys = list(props.keys())
+
+        if isinstance(arguments, (list, tuple)):
+            if keys:
+                mapped = {}
+                for idx, arg in enumerate(arguments):
+                    if idx < len(keys):
+                        mapped[keys[idx]] = arg
+                return mapped
+            if len(arguments) == 1:
+                return {"input": arguments[0]}
+            return {"input": arguments}
+
+        if isinstance(arguments, str):
+            if len(keys) == 1:
+                return {keys[0]: arguments}
+            return {"input": arguments}
+
+        return {"input": arguments}
+
     # Helper to route tool call by finding which server has it
     async def route_tool_call(self, tool_name: str, arguments: dict):
         from core.circuit_breaker import get_breaker, CircuitOpenError
@@ -366,12 +484,22 @@ class MultiMCP:
             )
         
         try:
+            normalized_args = self._normalize_tool_arguments(tool_name, arguments)
             for name, tools in self.tools.items():
                 for tool in tools:
                     if tool.name == tool_name:
-                        result = await self.call_tool(name, tool_name, arguments)
+                        result = await self.call_tool(name, tool_name, normalized_args)
                         breaker.record_success()
                         return result
+
+            # Try to start the owning server if we only have cached metadata
+            cached_owner = self._find_server_for_tool(tool_name)
+            if cached_owner and cached_owner not in self.sessions and cached_owner in self.server_configs:
+                await self._start_server(cached_owner, self.server_configs[cached_owner])
+                if cached_owner in self.sessions:
+                    result = await self.call_tool(cached_owner, tool_name, normalized_args)
+                    breaker.record_success()
+                    return result
             raise ValueError(f"Tool '{tool_name}' not found in any server")
         except CircuitOpenError:
             raise  # Re-raise circuit errors without recording failure
