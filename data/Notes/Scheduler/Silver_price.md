@@ -1,3 +1,3 @@
 # 📈 Market Briefing
 
-The user wants a concise Markdown report for silver price. I will extract the silver price and ticker from the `silver_price_data.txt` input and use the current date to create the report.
+The `consolidated_silver_price_summary` is empty, so no Markdown report can be generated. The final output will reflect the missing data.
