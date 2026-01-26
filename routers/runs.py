@@ -634,7 +634,7 @@ async def test_agent(run_id: str, node_id: str, request: AgentTestRequest = Body
         temp_context.plan_graph = G
         temp_context.multi_mcp = multi_mcp
 
-        max_turns = 15
+        max_turns = 3
         current_input = build_agent_input()
         iterations_data = []
         final_output = {}

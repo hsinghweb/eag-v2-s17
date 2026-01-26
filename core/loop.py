@@ -625,7 +625,7 @@ class AgentLoop4:
             return payload
 
         # Execute with ReAct Loop (Max 15 turns)
-        max_turns = 15
+        max_turns = 3
         current_input = build_agent_input()
         iterations_data = []
         
