@@ -1,1 +1,38 @@
-[]
+[
+  {
+    "id": "5f417b2a",
+    "name": "Test Market Check",
+    "cron_expression": "* * * * *",
+    "agent_type": "PlannerAgent",
+    "query": "Check current stock price of Apple. Save brief to Notes/test_apple.md",
+    "skill_id": "market_analyst",
+    "enabled": true,
+    "last_run": "2026-01-26T19:11:00.141314",
+    "next_run": "2026-01-26T19:10:00+05:30",
+    "last_output": null
+  },
+  {
+    "id": "1b5f4da2",
+    "name": "Test Silver Price",
+    "cron_expression": "* * * * *",
+    "agent_type": "PlannerAgent",
+    "query": "Find silver price and save to Notes/Scheduler/Silver_price.md",
+    "skill_id": "market_analyst",
+    "enabled": true,
+    "last_run": "2026-01-26T19:11:00.002674",
+    "next_run": "2026-01-26T19:10:00+05:30",
+    "last_output": null
+  },
+  {
+    "id": "a864df73",
+    "name": "Test System Health",
+    "cron_expression": "* * * * *",
+    "agent_type": "PlannerAgent",
+    "query": "Check system cpu usage",
+    "skill_id": null,
+    "enabled": true,
+    "last_run": "2026-01-26T19:11:00.300851",
+    "next_run": "2026-01-26T19:10:00+05:30",
+    "last_output": null
+  }
+]

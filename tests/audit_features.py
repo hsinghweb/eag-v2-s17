@@ -15,8 +15,9 @@ class TestAgentFeatures(unittest.TestCase):
         """Verify file_outline.py works on this very file."""
         print(f"\n[Audit] Testing file_outline.py on {__file__}...")
         result = subprocess.run(
-            ["python3", OUTLINE_SCRIPT, __file__], 
-            capture_output=True, text=True
+            [sys.executable, OUTLINE_SCRIPT, __file__],
+            capture_output=True,
+            text=True,
         )
         if result.returncode != 0:
             print(f"[Fail] Output: {result.stderr}")
