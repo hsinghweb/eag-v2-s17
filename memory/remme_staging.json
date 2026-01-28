@@ -26,6 +26,40 @@
       },
       "source": "session_auto_5f417b2a_20260126_203100",
       "timestamp": "2026-01-28T19:16:53.957542"
+    },
+    {
+      "raw": "concise and data-driven",
+      "source": "session_auto_52338019_20260126_202800",
+      "timestamp": "2026-01-28T19:19:29.350125"
+    },
+    {
+      "raw": {
+        "report_format": "Markdown",
+        "data_source": "yahoo_finance",
+        "tone": "concise and direct"
+      },
+      "source": "session_auto_52338019_20260126_202233",
+      "timestamp": "2026-01-28T19:24:06.766505"
+    },
+    {
+      "raw": {
+        "report_format": "Markdown",
+        "conciseness": "Yes",
+        "data_driven": "Yes"
+      },
+      "source": "session_auto_5f417b2a_20260126_201500",
+      "timestamp": "2026-01-28T19:25:37.027482"
+    },
+    {
+      "raw": {
+        "notes_file": "Notes/test_apple.md",
+        "tools": [
+          "get_stock_price",
+          "get_company_news"
+        ]
+      },
+      "source": "session_auto_5f417b2a_20260126_200000",
+      "timestamp": "2026-01-28T19:26:43.483104"
     }
   ],
   "last_normalized": null

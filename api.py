@@ -140,6 +140,6 @@ async def health_check():
 
 if __name__ == "__main__":
     import uvicorn
-    # Enable reload=True for development if needed, but here we'll just keep it simple
-    # or actually enable it to avoid these restart issues.
-    uvicorn.run("api:app", host="0.0.0.0", port=8000, reload=True)
+    # On Windows, avoid reload which can force a Selector loop and break subprocess-based MCP servers.
+    reload_enabled = False if sys.platform == "win32" else True
+    uvicorn.run("api:app", host="0.0.0.0", port=8000, reload=reload_enabled)
