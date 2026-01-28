@@ -1,3 +1,3 @@
 # 📈 Market Briefing
 
-The 'final_brief_content' is empty, so the report will state that no content was provided, reflecting the input directly. The output will be a Markdown string.
+The input 'final_apple_stock_price_summary' is empty. No content is available to format into a Markdown report.

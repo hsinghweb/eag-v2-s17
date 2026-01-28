@@ -153,7 +153,7 @@
     "enabled": true,
     "last_run": "2026-01-28T21:19:00.648857",
     "next_run": "2026-01-28T20:37:00+05:30",
-    "last_output": "The 'final_brief_content' is empty, so the report will state that no content was provided, reflecting the input directly. The output will be a Markdown string."
+    "last_output": "The input 'final_apple_stock_price_summary' is empty. No content is available to format into a Markdown report."
   },
   {
     "id": "070b62f7",
