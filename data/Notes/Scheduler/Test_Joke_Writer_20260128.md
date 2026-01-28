@@ -1,0 +1,1 @@
+The step T003 aims to save a markdown string to a file. The input 'formatted_joke_md' is specified as an empty list, which implies a lack of content for the joke. The agent cannot save a joke if the joke content is not provided.
