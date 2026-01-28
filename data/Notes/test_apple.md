@@ -1,3 +1,3 @@
 # 📈 Market Briefing
 
-The input 'final_apple_stock_price_summary' is empty. No content is available to format into a Markdown report.
+The `raw_markdown_content` input is empty. There is no content to format or write to `Notes/test_apple.md`. Therefore, I cannot generate a Markdown report.

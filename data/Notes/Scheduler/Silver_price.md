@@ -1,3 +1,3 @@
 # 📈 Market Briefing
 
-Processed: Find silver price and save to Notes/Scheduler/Silver_price.md
+Generating a concise Markdown report for the silver price. The 'final_silver_price_data' input is currently empty, therefore the report will indicate that the data is unavailable.
