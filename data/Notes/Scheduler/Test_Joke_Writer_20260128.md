@@ -1,1 +1,1 @@
-The agent prompt 'Save the generated joke to 'Notes/test_joke.md'.' is a direct instruction. This instruction will be placed into the 'final' output field as is, adhering to user preferences for conciseness and a direct tone.
+Why don't scientists trust atoms? Because they make up everything!

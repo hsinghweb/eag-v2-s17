@@ -1,3 +1,3 @@
 # 📈 Market Briefing
 
-The final_tesla_news_content input is an empty list. I will generate a Markdown report stating that no content is available. The report will be saved to 'Notes/test_tesla.md'.
+The user wants the final Markdown report content. I will retrieve the content from the `final_report_content` input and output it directly.

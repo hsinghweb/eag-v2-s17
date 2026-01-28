@@ -1,3 +1,3 @@
 # 📈 Market Briefing
 
-Generating a concise Markdown report for the silver price. The 'final_silver_price_data' input is currently empty, therefore the report will indicate that the data is unavailable.
+The inputs for `yahoo_silver_price` and `web_search_silver_price` are empty arrays. Therefore, I cannot compile a data-driven report with actual silver prices. I will generate a concise Markdown report indicating that the data was not provided.

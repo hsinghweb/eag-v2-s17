@@ -1,3 +1,17 @@
 # 📈 Market Briefing
 
-The `raw_markdown_content` input is empty. There is no content to format or write to `Notes/test_apple.md`. Therefore, I cannot generate a Markdown report.
+{{#if all_globals_schema.consolidated_apple_price}}
+# Apple Stock Price Report
+
+{{#each all_globals_schema.consolidated_apple_price}}
+## Current Price ({{this.symbol}})
+
+- **Price:** ${{this.price}} {{this.currency}}
+- **Exchange:** {{this.exchange}}
+- **Last Updated:** {{this.timestamp}}
+{{/each}}
+{{else}}
+# Apple Stock Price Report
+
+No current stock price data available for Apple.
+{{/if}}

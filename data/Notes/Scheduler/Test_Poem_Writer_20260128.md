@@ -1,1 +1,1 @@
-Summarizing the agent's action to save content to a file.
+The 'poem_content' is empty, so there's nothing to format or save. The user needs to generate the poem content first.
