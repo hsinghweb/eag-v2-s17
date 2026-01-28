@@ -11,6 +11,13 @@ class CreateJobRequest(BaseModel):
     agent_type: str = "PlannerAgent"
     query: str
 
+class UpdateJobRequest(BaseModel):
+    name: Optional[str] = None
+    cron: Optional[str] = None
+    agent_type: Optional[str] = None
+    query: Optional[str] = None
+    enabled: Optional[bool] = None
+
 @router.get("/jobs", response_model=List[JobDefinition])
 async def list_jobs():
     """List all scheduled jobs."""
@@ -46,3 +53,20 @@ async def delete_job(job_id: str):
     """Delete a scheduled task."""
     scheduler_service.delete_job(job_id)
     return {"status": "deleted", "id": job_id}
+
+@router.patch("/jobs/{job_id}", response_model=JobDefinition)
+async def update_job(job_id: str, request: UpdateJobRequest):
+    """Update a scheduled task."""
+    try:
+        return scheduler_service.update_job(
+            job_id=job_id,
+            name=request.name,
+            cron_expression=request.cron,
+            agent_type=request.agent_type,
+            query=request.query,
+            enabled=request.enabled,
+        )
+    except KeyError:
+        raise HTTPException(status_code=404, detail="Job not found")
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))

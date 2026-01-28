@@ -126,7 +126,12 @@ h1 {
   font-weight: 600;
 }
 
-.content-grid {
+.page {
+  display: none;
+  gap: 24px;
+}
+
+.page.active {
   display: grid;
   grid-template-columns: 1.4fr 1fr;
   gap: 24px;
@@ -144,6 +149,11 @@ h1 {
   display: flex;
   flex-direction: column;
   gap: 16px;
+}
+.page#pageInbox,
+.page#pageNotes,
+.page#pageSettings {
+  grid-template-columns: 1fr;
 }
 
 .panel-header {
@@ -173,6 +183,22 @@ h1 {
   padding: 14px;
   display: grid;
   gap: 8px;
+}
+
+.job-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.job-actions button {
+  flex: 1;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  padding: 6px 8px;
+  cursor: pointer;
+  font-size: 12px;
 }
 
 .job-card h3 {

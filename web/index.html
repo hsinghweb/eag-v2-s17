@@ -11,18 +11,18 @@
       <aside class="sidebar">
         <div class="logo">SH</div>
         <nav class="nav">
-          <button class="nav-item active">Scheduler</button>
-          <button class="nav-item">Inbox</button>
-          <button class="nav-item">Notes</button>
-          <button class="nav-item">Settings</button>
+          <button class="nav-item active" data-page="scheduler">Scheduler</button>
+          <button class="nav-item" data-page="inbox">Inbox</button>
+          <button class="nav-item" data-page="notes">Notes</button>
+          <button class="nav-item" data-page="settings">Settings</button>
         </nav>
       </aside>
 
       <main class="main">
         <header class="topbar">
           <div>
-            <h1>Scheduler</h1>
-            <p class="subtle">Automate daily tasks and briefings</p>
+            <h1 id="pageTitle">Scheduler</h1>
+            <p class="subtle" id="pageSubtitle">Automate daily tasks and briefings</p>
           </div>
           <div class="actions">
             <button id="themeToggle" class="ghost">Light/Dark</button>
@@ -31,7 +31,7 @@
           </div>
         </header>
 
-        <section class="content-grid">
+        <section id="pageScheduler" class="page active">
           <section class="panel">
             <div class="panel-header">
               <h2>Scheduled Jobs</h2>
@@ -39,23 +39,45 @@
             </div>
             <div id="jobsGrid" class="card-grid"></div>
           </section>
+          <section class="panel" id="jobHistoryPanel">
+            <div class="panel-header">
+              <h2>Execution History</h2>
+              <span class="badge" id="historyCount">0</span>
+            </div>
+            <div id="historyList" class="list"></div>
+          </section>
+        </section>
 
-          <section class="panel stack">
+        <section id="pageInbox" class="page">
+          <section class="panel">
             <div class="panel-header">
               <h2>Inbox</h2>
               <span class="badge" id="inboxCount">0</span>
             </div>
             <div id="inboxList" class="list"></div>
+          </section>
+        </section>
 
+        <section id="pageNotes" class="page">
+          <section class="panel">
             <div class="panel-header">
               <h2>Notes</h2>
               <span class="badge" id="notesCount">0</span>
             </div>
             <div id="notesList" class="list"></div>
-            <div class="note-preview">
-              <div class="note-title" id="noteTitle">Select a note</div>
-              <pre class="note-body" id="noteBody"></pre>
+          </section>
+          <section class="panel">
+            <div class="note-title" id="noteTitle">Select a note</div>
+            <pre class="note-body" id="noteBody"></pre>
+          </section>
+        </section>
+
+        <section id="pageSettings" class="page">
+          <section class="panel">
+            <div class="panel-header">
+              <h2>Settings</h2>
             </div>
+            <p class="subtle">Theme, email, and model settings live here.</p>
           </section>
         </section>
       </main>

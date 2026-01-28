@@ -270,6 +270,40 @@ class SchedulerService:
         self.save_jobs()
         return job
 
+    def update_job(
+        self,
+        job_id: str,
+        name: Optional[str] = None,
+        cron_expression: Optional[str] = None,
+        agent_type: Optional[str] = None,
+        query: Optional[str] = None,
+        enabled: Optional[bool] = None,
+    ) -> JobDefinition:
+        """Update an existing job and reschedule it if needed."""
+        if job_id not in self.jobs:
+            raise KeyError(f"Job {job_id} not found")
+
+        job = self.jobs[job_id]
+        if name is not None:
+            job.name = name
+        if cron_expression is not None:
+            job.cron_expression = cron_expression
+        if agent_type is not None:
+            job.agent_type = agent_type
+        if query is not None:
+            job.query = query
+        if enabled is not None:
+            job.enabled = enabled
+
+        if job.enabled:
+            self._schedule_job(job)
+        else:
+            if self.scheduler.get_job(job_id):
+                self.scheduler.remove_job(job_id)
+
+        self.save_jobs()
+        return job
+
     def trigger_job(self, job_id: str):
         """Force a job to run immediately."""
         if job_id not in self.jobs:
