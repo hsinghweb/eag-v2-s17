@@ -8,7 +8,7 @@
     "skill_id": "market_analyst",
     "enabled": true,
     "last_run": "2026-01-26T20:31:00.341651",
-    "next_run": "2026-01-26T19:10:00+05:30",
+    "next_run": "2026-01-28T20:30:00+05:30",
     "last_output": "The step requires saving a Markdown report. The input for `formatted_apple_report_md` is empty, meaning the content to be saved is missing."
   },
   {
@@ -20,7 +20,7 @@
     "skill_id": "market_analyst",
     "enabled": true,
     "last_run": "2026-01-26T20:31:00.020263",
-    "next_run": "2026-01-26T19:10:00+05:30",
+    "next_run": "2026-01-28T20:30:00+05:30",
     "last_output": "# Silver Price Report\n\n**Date:** 2026-01-26\n\nNo summarized silver price data was available to generate the report."
   },
   {
@@ -32,7 +32,7 @@
     "skill_id": null,
     "enabled": true,
     "last_run": "2026-01-26T20:32:00.903530",
-    "next_run": "2026-01-26T19:10:00+05:30",
+    "next_run": "2026-01-28T20:30:00+05:30",
     "last_output": "The input `parsed_cpu_usage_data` is empty. The report will state that no CPU usage data is available."
   },
   {
@@ -44,7 +44,7 @@
     "skill_id": "market_analyst",
     "enabled": true,
     "last_run": "2026-01-26T20:29:00.231264",
-    "next_run": "2026-01-26T20:23:00+05:30",
+    "next_run": "2026-01-28T20:30:00+05:30",
     "last_output": "No content provided in `apple_brief_content` for formatting into a Markdown report. The file `Notes/test_apple.md` will not be created or will be empty."
   },
   {
@@ -56,7 +56,7 @@
     "skill_id": "market_analyst",
     "enabled": true,
     "last_run": "2026-01-26T20:28:00.004640",
-    "next_run": "2026-01-26T20:23:00+05:30",
+    "next_run": "2026-01-28T20:30:00+05:30",
     "last_output": "The user requested a concise Markdown report of the silver price including the current date. The provided input for 'silver_price_raw_data.json' is an empty list, meaning no price data was supplied to..."
   },
   {
@@ -68,7 +68,7 @@
     "skill_id": "system_monitor",
     "enabled": true,
     "last_run": "2026-01-26T20:29:00.018741",
-    "next_run": "2026-01-26T20:23:00+05:30",
+    "next_run": "2026-01-28T20:30:00+05:30",
     "last_output": "CPU: 52.4%, RAM: 85.0%, Disk: 27.2%"
   },
   {
@@ -80,7 +80,7 @@
     "skill_id": "web_clipper",
     "enabled": true,
     "last_run": "2026-01-26T20:27:51.686580",
-    "next_run": "2026-01-26T20:28:00+05:30",
+    "next_run": "2026-01-28T20:30:00+05:30",
     "last_output": null
   },
   {
@@ -92,7 +92,7 @@
     "skill_id": "market_analyst",
     "enabled": true,
     "last_run": "2026-01-28T19:45:00.006050",
-    "next_run": "2026-01-28T19:42:00+05:30",
+    "next_run": "2026-01-29T09:00:00+05:30",
     "last_output": "The user wants a concise Markdown report containing Apple's current stock price. I need to format the value from `current_apple_stock_price` into a Markdown string. Assuming `current_apple_stock_price..."
   },
   {
@@ -104,7 +104,7 @@
     "skill_id": "market_analyst",
     "enabled": true,
     "last_run": "2026-01-28T19:46:00.012690",
-    "next_run": "2026-01-28T19:42:00+05:30",
+    "next_run": "2026-01-29T09:00:00+05:30",
     "last_output": "The `final_silver_price_data` input is empty, so a report cannot be generated. I will inform the user that the necessary data is missing."
   },
   {
@@ -116,7 +116,7 @@
     "skill_id": "system_monitor",
     "enabled": true,
     "last_run": "2026-01-28T19:48:00.023169",
-    "next_run": "2026-01-28T19:43:00+05:30",
+    "next_run": "2026-01-29T09:00:00+05:30",
     "last_output": "CPU: 33.3%, RAM: 81.6%, Disk: 27.2%"
   },
   {
@@ -128,7 +128,19 @@
     "skill_id": "web_clipper",
     "enabled": true,
     "last_run": "2026-01-28T19:47:20.260612",
-    "next_run": "2026-01-28T19:48:00+05:30",
+    "next_run": "2026-01-29T09:00:00+05:30",
     "last_output": null
+  },
+  {
+    "id": "354eabd0",
+    "name": "Morning Briefing",
+    "cron_expression": "15 20 * * *",
+    "agent_type": "PlannerAgent",
+    "query": "Summarize overnight news and send a brief to inbox\n\nSave the final report to Notes/Scheduler/morning_briefing_20260128.md.",
+    "skill_id": "market_analyst",
+    "enabled": true,
+    "last_run": "2026-01-28T20:15:00.018891",
+    "next_run": "2026-01-29T20:15:00+05:30",
+    "last_output": "The `summarized_brief_content` input is empty, so a report cannot be generated. The output will indicate the missing content."
   }
 ]
