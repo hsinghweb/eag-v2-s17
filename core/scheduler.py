@@ -14,6 +14,7 @@ logger = logging.getLogger("scheduler")
 
 # Path to persist jobs
 JOBS_FILE = Path("data/system/jobs.json")
+LOCAL_MIN_CRON = "0 9 * * *"
 
 class JobDefinition(BaseModel):
     id: str
@@ -60,10 +61,20 @@ class SchedulerService:
             data = json.loads(JOBS_FILE.read_text())
             for job_data in data:
                 job_def = JobDefinition(**job_data)
+                # For local testing, avoid per-minute schedules that keep the server busy.
+                if job_def.cron_expression in ("* * * * *", "*/1 * * * *"):
+                    logger.info(
+                        "⏳ Throttling cron for %s from '%s' to '%s' (local testing).",
+                        job_def.name,
+                        job_def.cron_expression,
+                        LOCAL_MIN_CRON,
+                    )
+                    job_def.cron_expression = LOCAL_MIN_CRON
                 self.jobs[job_def.id] = job_def
                 if job_def.enabled:
                     self._schedule_job(job_def)
             logger.info(f"Loaded {len(self.jobs)} jobs from disk.")
+            self.save_jobs()
         except Exception as e:
             logger.error(f"Failed to load jobs: {e}")
 

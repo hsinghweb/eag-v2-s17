@@ -2,7 +2,7 @@
   {
     "id": "5f417b2a",
     "name": "Test Market Check",
-    "cron_expression": "* * * * *",
+    "cron_expression": "*/30 * * * *",
     "agent_type": "PlannerAgent",
     "query": "Check current stock price of Apple. Save brief to Notes/test_apple.md",
     "skill_id": "market_analyst",
@@ -14,7 +14,7 @@
   {
     "id": "1b5f4da2",
     "name": "Test Silver Price",
-    "cron_expression": "* * * * *",
+    "cron_expression": "*/30 * * * *",
     "agent_type": "PlannerAgent",
     "query": "Find silver price and save to Notes/Scheduler/Silver_price.md",
     "skill_id": "market_analyst",
@@ -26,7 +26,7 @@
   {
     "id": "a864df73",
     "name": "Test System Health",
-    "cron_expression": "* * * * *",
+    "cron_expression": "*/30 * * * *",
     "agent_type": "PlannerAgent",
     "query": "Check system cpu usage",
     "skill_id": null,
@@ -38,7 +38,7 @@
   {
     "id": "dba0daec",
     "name": "Test Market Check",
-    "cron_expression": "* * * * *",
+    "cron_expression": "*/30 * * * *",
     "agent_type": "PlannerAgent",
     "query": "Check current stock price of Apple. Save brief to Notes/test_apple.md",
     "skill_id": "market_analyst",
@@ -50,7 +50,7 @@
   {
     "id": "52338019",
     "name": "Test Silver Price",
-    "cron_expression": "* * * * *",
+    "cron_expression": "*/30 * * * *",
     "agent_type": "PlannerAgent",
     "query": "Find silver price and save to Notes/Scheduler/Silver_price.md",
     "skill_id": "market_analyst",
@@ -62,7 +62,7 @@
   {
     "id": "0a7a6692",
     "name": "Test System Health",
-    "cron_expression": "* * * * *",
+    "cron_expression": "*/30 * * * *",
     "agent_type": "PlannerAgent",
     "query": "Check system cpu usage",
     "skill_id": "system_monitor",
@@ -74,7 +74,7 @@
   {
     "id": "2e343309",
     "name": "Test Clip Google",
-    "cron_expression": "* * * * *",
+    "cron_expression": "*/30 * * * *",
     "agent_type": "PlannerAgent",
     "query": "Clip url https://www.google.com",
     "skill_id": "web_clipper",
