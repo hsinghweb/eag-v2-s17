@@ -1,11 +1,5 @@
 {
   "timestamp": null,
-  "active_runs": [
-    {
-      "run_id": "auto_0887d5f5_20260128_194800",
-      "status": "running",
-      "query": "Check system cpu usage"
-    }
-  ],
-  "event_history_count": 42
+  "active_runs": [],
+  "event_history_count": 0
 }

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scheduler Hub</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body data-theme="dark">
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="logo">SH</div>
+        <nav class="nav">
+          <button class="nav-item active">Scheduler</button>
+          <button class="nav-item">Inbox</button>
+          <button class="nav-item">Notes</button>
+          <button class="nav-item">Settings</button>
+        </nav>
+      </aside>
+
+      <main class="main">
+        <header class="topbar">
+          <div>
+            <h1>Scheduler</h1>
+            <p class="subtle">Automate daily tasks and briefings</p>
+          </div>
+          <div class="actions">
+            <button id="themeToggle" class="ghost">Light/Dark</button>
+            <button id="refreshBtn" class="ghost">Refresh</button>
+            <button id="createBtn" class="primary">Create Job</button>
+          </div>
+        </header>
+
+        <section class="content-grid">
+          <section class="panel">
+            <div class="panel-header">
+              <h2>Scheduled Jobs</h2>
+              <span id="jobCount" class="badge">0</span>
+            </div>
+            <div id="jobsGrid" class="card-grid"></div>
+          </section>
+
+          <section class="panel stack">
+            <div class="panel-header">
+              <h2>Inbox</h2>
+              <span class="badge" id="inboxCount">0</span>
+            </div>
+            <div id="inboxList" class="list"></div>
+
+            <div class="panel-header">
+              <h2>Notes</h2>
+              <span class="badge" id="notesCount">0</span>
+            </div>
+            <div id="notesList" class="list"></div>
+            <div class="note-preview">
+              <div class="note-title" id="noteTitle">Select a note</div>
+              <pre class="note-body" id="noteBody"></pre>
+            </div>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <div id="modal" class="modal hidden">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h3>Create Scheduled Task</h3>
+          <button id="closeModal" class="ghost">X</button>
+        </div>
+        <div class="modal-body">
+          <label>
+            Task Name
+            <input id="taskName" placeholder="Morning Briefing" />
+          </label>
+
+          <div class="tabs">
+            <button class="tab active" data-tab="simple">Simple Mode</button>
+            <button class="tab" data-tab="advanced">Advanced (Cron)</button>
+          </div>
+
+          <div id="simpleTab" class="tab-panel active">
+            <label>
+              Frequency
+              <select id="frequency">
+                <option value="daily">Daily</option>
+              </select>
+            </label>
+            <label>
+              Time
+              <input id="time" type="time" value="07:00" />
+            </label>
+          </div>
+
+          <div id="advancedTab" class="tab-panel">
+            <label>
+              Cron Expression
+              <input id="cron" placeholder="0 7 * * *" />
+            </label>
+          </div>
+
+          <label>
+            Agent Instructions
+            <textarea
+              id="instructions"
+              placeholder="Summarize overnight news and send a brief to inbox."
+            ></textarea>
+          </label>
+
+          <div class="hint">
+            Gmail: set <code>GMAIL_USER</code> and <code>GMAIL_APP_PASSWORD</code> in your
+            <code>.env</code> file to receive results via email.
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button id="cancelModal" class="ghost">Cancel</button>
+          <button id="scheduleBtn" class="primary">Schedule Task</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>

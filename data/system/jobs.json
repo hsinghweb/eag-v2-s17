@@ -86,7 +86,7 @@
   {
     "id": "ea007499",
     "name": "Test Market Check",
-    "cron_expression": "* * * * *",
+    "cron_expression": "0 9 * * *",
     "agent_type": "PlannerAgent",
     "query": "Check current stock price of Apple. Save brief to Notes/test_apple.md",
     "skill_id": "market_analyst",
@@ -98,7 +98,7 @@
   {
     "id": "f7006e94",
     "name": "Test Silver Price",
-    "cron_expression": "* * * * *",
+    "cron_expression": "0 9 * * *",
     "agent_type": "PlannerAgent",
     "query": "Find silver price and save to Notes/Scheduler/Silver_price.md",
     "skill_id": "market_analyst",
@@ -110,7 +110,7 @@
   {
     "id": "0887d5f5",
     "name": "Test System Health",
-    "cron_expression": "* * * * *",
+    "cron_expression": "0 9 * * *",
     "agent_type": "PlannerAgent",
     "query": "Check system cpu usage",
     "skill_id": "system_monitor",
@@ -122,7 +122,7 @@
   {
     "id": "d318eb57",
     "name": "Test Clip Google",
-    "cron_expression": "* * * * *",
+    "cron_expression": "0 9 * * *",
     "agent_type": "PlannerAgent",
     "query": "Clip url https://www.google.com",
     "skill_id": "web_clipper",

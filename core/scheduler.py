@@ -1,6 +1,7 @@
 import json
 import asyncio
 import logging
+import re
 from pathlib import Path
 from typing import List, Dict, Any, Optional
 from datetime import datetime
@@ -8,6 +9,8 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.cron import CronTrigger
 from pydantic import BaseModel
 import uuid
+
+from core.email_utils import send_gmail
 
 # Setup logging
 logger = logging.getLogger("scheduler")
@@ -155,6 +158,19 @@ class SchedulerService:
                 job.last_output = skill_result.get("summary") if skill_result else (result.get("summary") if result else "Success")
                 self.save_jobs()
 
+                # Persist a note for the job result (if skill didn't already create one)
+                summary_text = job.last_output or "Success"
+                note_path = None
+                if skill_result and skill_result.get("file_path"):
+                    note_path = skill_result.get("file_path")
+                else:
+                    safe_name = re.sub(r"[^a-zA-Z0-9_-]+", "_", job.name).strip("_") or "scheduled_job"
+                    date_tag = datetime.now().strftime("%Y%m%d")
+                    note_dir = Path("data/Notes/Scheduler")
+                    note_dir.mkdir(parents=True, exist_ok=True)
+                    note_path = str(note_dir / f"{safe_name}_{date_tag}.md")
+                    Path(note_path).write_text(summary_text, encoding="utf-8")
+
                 # Build rich notification body
                 notif_body = f"Job '{job.name}' finished.\n\n"
                 if skill_result and skill_result.get("summary"):
@@ -172,9 +188,16 @@ class SchedulerService:
                     metadata={
                         "job_id": job.id, 
                         "run_id": run_id,
-                        "file_path": skill_result.get("file_path") if skill_result else None
+                        "file_path": note_path
                     }
                 )
+
+                # Optional Gmail notification (uses .env: GMAIL_USER/GMAIL_APP_PASSWORD/GMAIL_TO)
+                try:
+                    email_body = f"{notif_body}\n\nNote: {note_path}" if note_path else notif_body
+                    send_gmail(subject=f"Scheduled Task: {job.name}", body=email_body)
+                except Exception as email_error:
+                    logger.warning(f"Email send failed for {job.name}: {email_error}")
 
             except Exception as e:
                 error_msg = f"❌ Job {job.name} failed: {e}"

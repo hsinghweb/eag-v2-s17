@@ -4,6 +4,8 @@ import asyncio
 import subprocess
 from pathlib import Path
 from fastapi import FastAPI, BackgroundTasks, HTTPException, Request
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Optional
@@ -69,6 +71,14 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(lifespan=lifespan)
 
+WEB_DIR = Path(__file__).parent / "web"
+if WEB_DIR.exists():
+    app.mount("/static", StaticFiles(directory=WEB_DIR), name="static")
+
+    @app.get("/")
+    async def ui_index():
+        return FileResponse(WEB_DIR / "index.html")
+
 # Enable CORS for Frontend
 app.add_middleware(
     CORSMiddleware,
@@ -125,6 +135,8 @@ from routers import stream
 app.include_router(stream.router)
 from routers import skills
 app.include_router(skills.router)
+from routers import notes
+app.include_router(notes.router)
 
 
 
