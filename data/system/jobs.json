@@ -82,5 +82,53 @@
     "last_run": "2026-01-26T20:27:51.686580",
     "next_run": "2026-01-26T20:28:00+05:30",
     "last_output": null
+  },
+  {
+    "id": "ea007499",
+    "name": "Test Market Check",
+    "cron_expression": "* * * * *",
+    "agent_type": "PlannerAgent",
+    "query": "Check current stock price of Apple. Save brief to Notes/test_apple.md",
+    "skill_id": "market_analyst",
+    "enabled": true,
+    "last_run": "2026-01-28T19:45:00.006050",
+    "next_run": "2026-01-28T19:42:00+05:30",
+    "last_output": "The user wants a concise Markdown report containing Apple's current stock price. I need to format the value from `current_apple_stock_price` into a Markdown string. Assuming `current_apple_stock_price..."
+  },
+  {
+    "id": "f7006e94",
+    "name": "Test Silver Price",
+    "cron_expression": "* * * * *",
+    "agent_type": "PlannerAgent",
+    "query": "Find silver price and save to Notes/Scheduler/Silver_price.md",
+    "skill_id": "market_analyst",
+    "enabled": true,
+    "last_run": "2026-01-28T19:46:00.012690",
+    "next_run": "2026-01-28T19:42:00+05:30",
+    "last_output": "The `final_silver_price_data` input is empty, so a report cannot be generated. I will inform the user that the necessary data is missing."
+  },
+  {
+    "id": "0887d5f5",
+    "name": "Test System Health",
+    "cron_expression": "* * * * *",
+    "agent_type": "PlannerAgent",
+    "query": "Check system cpu usage",
+    "skill_id": "system_monitor",
+    "enabled": true,
+    "last_run": "2026-01-28T19:48:00.023169",
+    "next_run": "2026-01-28T19:43:00+05:30",
+    "last_output": "CPU: 33.3%, RAM: 81.6%, Disk: 27.2%"
+  },
+  {
+    "id": "d318eb57",
+    "name": "Test Clip Google",
+    "cron_expression": "* * * * *",
+    "agent_type": "PlannerAgent",
+    "query": "Clip url https://www.google.com",
+    "skill_id": "web_clipper",
+    "enabled": true,
+    "last_run": "2026-01-28T19:47:20.260612",
+    "next_run": "2026-01-28T19:48:00+05:30",
+    "last_output": null
   }
 ]

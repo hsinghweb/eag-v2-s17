@@ -1,0 +1,1 @@
+{"session_id": "mcp_worker", "action": "BLOCKED", "violation": "Subprocess execution", "pattern_matched": "subprocess\\.", "code_snippet": "import subprocess\n\nresult = subprocess.run(['top', '-bn1'], capture_output=True, text=True)\nprint(result.stdout)", "all_violations": ["Subprocess execution"], "timestamp": "2026-01-28T19:48:24.887352"}

@@ -154,9 +154,9 @@ def run_suite():
             r = requests.post(f"{API_BASE}/cron/jobs/{job_id}/trigger")
             r.raise_for_status()
             
-            # 3. Poll for Completion (Max 300s)
+            # 3. Poll for Completion (Max 30s)
             start_time = time.time()
-            max_wait = 300 # 5 minutes
+            max_wait = 30 # 30 seconds
             found = False
             
             print(f"   ⏳ Waiting for output (timeout: {max_wait}s)...")

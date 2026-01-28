@@ -1,7 +1,3 @@
 # 📈 Market Briefing
 
-# Silver Price Report
-
-**Date:** 2026-01-26
-
-No summarized silver price data was available to generate the report.
+The `final_silver_price_data` input is empty, so a report cannot be generated. I will inform the user that the necessary data is missing.
